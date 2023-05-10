@@ -1,0 +1,60 @@
+﻿@page "/seek"
+@inject HttpClient HttpClient
+@inject NavigationManager Navigate
+@inject IJSRuntime JsRuntime
+
+
+<input type="text" @bind-value="@SearchTerm" />
+
+<button class="btn btn-danger" @onclick="SearchProducts">Search</button>
+
+@if (Products != null && Products.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>GTU</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.SellePriceBrutto</td>
+                    <td>@product.Quantity</td>
+                    <td>@product.GTU</td>
+                    <td><button class="btn btn-danger" @onclick="() => DeleteProducts(product.Id)">Delete product</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No products found.</p>
+}
+
+@code {
+    private string? SearchTerm { get; set; }
+    private List<WarhauseASP.Shared.State>? Products { get; set; }
+
+
+
+    private async Task SearchProducts()
+    {
+        Products = await HttpClient.GetFromJsonAsync<List<WarhauseASP.Shared.State>>($"api/Warhause/StateSeek?name={SearchTerm}");
+    }
+    private async Task DeleteProducts(Guid id)
+    {
+        HttpClient.DeleteAsync($"api/Warhause/DeletetProduct?guid={id}");
+        await JsRuntime.InvokeVoidAsync("alert", "Product was been deleted");
+        Navigate.NavigateTo("Seek", forceLoad: true);
+
+    }
+}

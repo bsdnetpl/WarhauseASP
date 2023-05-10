@@ -1,0 +1,79 @@
+﻿@page "/state"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject HttpClient Http
+@inject NavigationManager navigator
+
+<h3>State</h3>
+
+
+
+
+
+@if (state == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <QuickGrid Items="@state.AsQueryable()" Pagination="@pagination" Virtualize="true" ResizableColumns Theme="corporate">
+            @*<PropertyColumn Property="@(p => p.Id)"></PropertyColumn >*@
+            <PropertyColumn Property="@(p => p.Name)" Sortable="true"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.Quantity)"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.Profit)"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.SellePriceBrutto)"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.PurchasePriceNetto)"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.GTU)"></PropertyColumn>
+            <TemplateColumn Title="Actions">
+                <button class="btn btn-warning">Sell</button>
+                <button class="btn btn-dark">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+            </TemplateColumn>
+        </QuickGrid>
+    <Paginator Value="@pagination" />
+
+    @* <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Ilość</th>
+                <th>Zarobek</th>
+                <th>Cena produktu</th>
+                <th>Cena zakupu Netto</th>
+                <th>GTU</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stateL in state)
+            {
+                <tr>
+                    <td>@stateL.Id</td>
+                    <td>@stateL.Name</td>
+                    <td>@stateL.Quantity</td>
+                    <td>@stateL.Profit</td>
+                    <td>@stateL.SellePriceBrutto</td>
+                    <td>@stateL.PurchasePriceNetto</td>
+                    <td>@stateL.GTU</td>
+                    <td><button class="btn btn-primary" @onclick="(() => ShowProduct(stateL.Id))"><i class="oi oi-pencil"></i></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+}
+
+@code {
+
+    WarhauseASP.Shared.State[]? state;
+    PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
+
+    protected override async Task OnInitializedAsync()
+    {
+        state = await Http.GetFromJsonAsync<WarhauseASP.Shared.State[]>("api/Warhause/State");
+    }
+   
+    void ShowProduct(Guid id)
+    {
+        navigator.NavigateTo($"/product?id={id}");
+    }
+}

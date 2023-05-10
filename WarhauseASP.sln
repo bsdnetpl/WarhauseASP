@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33620.401
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhauseASP.Server", "WarhauseASP\Server\WarhauseASP.Server.csproj", "{0B078E9F-5B75-4D20-BFD8-D0550E5AD6A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhauseASP.Server", "WarhauseASP\Server\WarhauseASP.Server.csproj", "{0B078E9F-5B75-4D20-BFD8-D0550E5AD6A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhauseASP.Client", "WarhauseASP\Client\WarhauseASP.Client.csproj", "{4BAC7DA3-B7AB-4EC4-94A3-AC6AD67AD907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhauseASP.Client", "WarhauseASP\Client\WarhauseASP.Client.csproj", "{4BAC7DA3-B7AB-4EC4-94A3-AC6AD67AD907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhauseASP.Shared", "WarhauseASP\Shared\WarhauseASP.Shared.csproj", "{626B3649-891B-4DA7-B334-0DC4BAC49ED3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhauseASP.Shared", "WarhauseASP\Shared\WarhauseASP.Shared.csproj", "{626B3649-891B-4DA7-B334-0DC4BAC49ED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

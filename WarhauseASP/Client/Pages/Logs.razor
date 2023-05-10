@@ -1,0 +1,57 @@
+﻿@page "/logs"
+@inject HttpClient Http
+<h3>Logs</h3>
+
+<input type="text" @bind-value="@line" />
+
+<button class="btn btn-danger" @onclick="SearchLogs">Search lines log</button>
+
+
+
+@if (logs == null)
+{
+    <p><em>Waiting for your action ...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Created On</th>
+                <th>Ilość</th>
+                <th>Logger</th>
+                <th>Message</th>
+                <th>Url</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Logsl in logs)
+            {
+                <tr>
+                    <td>@Logsl.Id</td>
+                    <td>@Logsl.CreatedOn</td>
+                    <td>@Logsl.Logger</td>
+                    <td>@Logsl.Message</td>
+                    <td>@Logsl.Url</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private int line { get; set; }
+    WarhauseASP.Shared.Logs[]? logs;
+    protected override void OnInitialized()
+    {
+        line = 130;
+    }
+    private async Task SearchLogs()
+    {
+        logs = await Http.GetFromJsonAsync<WarhauseASP.Shared.Logs[]>($"api/Warhause/Logs?getline={line}");
+    }
+
+
+}

@@ -64,7 +64,7 @@ namespace WarhauseASP.Server.Controllers
             var logs = _userService.GetLogs(getline);
             return Ok(logs);
         }
-        [HttpDelete("DeleteUser")]
+        [HttpDelete("DeletetProduct")]
         public async Task<IActionResult> DeleteProduct(Guid guid)
         {
             var delProd = await _connectionDB.States.FindAsync(guid);
