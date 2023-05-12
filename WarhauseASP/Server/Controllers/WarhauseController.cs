@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -65,17 +66,24 @@ namespace WarhauseASP.Server.Controllers
             return Ok(logs);
         }
         [HttpDelete("DeletetProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(Guid guid)
         {
-            var delProd = await _connectionDB.States.FindAsync(guid);
+            _logger.LogDebug("This is a debug message");
+            _logger.LogInformation("This is an info message");
+            _logger.LogWarning("This is a warning message ");
+            _logger.LogError(new Exception(), "This is an error message");
 
-            if (delProd != null)
-            {
-                _userService.DeleteProduct(guid);
-                return Ok($"Was been deleted {delProd.Name}");
-            }
-            return Ok($"No product in DB: {delProd.Name}");
-        }
+          
+                var delProd = await _connectionDB.States.FindAsync(guid);
+
+                if (delProd != null)
+                {
+                    _userService.DeleteProduct(guid);
+                    return Ok($"Was been deleted {delProd.Name}");
+                }
+                return Ok($"No product in DB: {delProd.Name}");
+         }
 
         [HttpPut("EdityState")]
         public IActionResult EditState(StateDto stateDto, Guid guid)
