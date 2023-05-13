@@ -2,7 +2,8 @@
 @inject HttpClient HttpClient
 @inject NavigationManager Navigate
 @inject IJSRuntime JsRuntime
-
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <input type="text" @bind-value="@SearchTerm" />
 
@@ -39,6 +40,11 @@ else
 {
     <p>No products found.</p>
 }
+@foreach(var claim in context.User)
+<AuthorizeView Roles="Admin">
+    <p>Admin view</p>
+
+</AuthorizeView>
 
 @code {
     private string? SearchTerm { get; set; }

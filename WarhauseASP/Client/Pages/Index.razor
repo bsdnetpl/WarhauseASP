@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization;
 @using System.Security.Claims;
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
@@ -10,7 +11,14 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<AuthorizeView Roles="Admin">
+    <p>Admin view</p>
+</AuthorizeView>
+
 @{
  
+
+
     
 }
