@@ -30,7 +30,9 @@
                     <td>@product.SellePriceBrutto</td>
                     <td>@product.Quantity</td>
                     <td>@product.GTU</td>
+                    <AuthorizeView Roles="Admin">
                     <td><button class="btn btn-danger" @onclick="() => DeleteProducts(product.Id)">Delete product</button></td>
+                    </AuthorizeView>
                 </tr>
             }
         </tbody>
@@ -40,7 +42,7 @@ else
 {
     <p>No products found.</p>
 }
-@foreach(var claim in context.User)
+
 <AuthorizeView Roles="Admin">
     <p>Admin view</p>
 

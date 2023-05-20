@@ -11,6 +11,8 @@ using WarhauseASP.Server.Controllers;
 using WarhauseASP.Server.Service;
 using NLog.Web;
 using Microsoft.AspNetCore.Builder;
+using System.IdentityModel.Tokens.Jwt;
+using Blazored.Modal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,9 +26,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
+    { // add important for roles. 
+        opt.IdentityResources["openid"].UserClaims.Add("role");
+        opt.ApiResources.Single().UserClaims.Add("role");
+    });
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
+
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
@@ -38,6 +46,7 @@ builder.Services.AddScoped<IWarhauseService, WarhauseService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Host.UseNLog();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -69,6 +78,7 @@ app.UseRouting();
 
 app.UseIdentityServer();
 app.UseAuthorization();
+app.UseAuthentication();
 
 
 app.MapRazorPages();
