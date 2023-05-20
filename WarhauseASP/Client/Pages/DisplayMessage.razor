@@ -1,0 +1,17 @@
+﻿<div>
+    <p>@Message</p>
+    <p>@name</p>
+    <p>Amount product</p>
+    <input type="text" />
+    <button @onclick="Close">Sell</button>
+    <button @onclick="Close">Close</button>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public Guid? Message { get; set; }
+    [Parameter] public string? name { get; set; }
+
+    private async Task Close() => await BlazoredModal.CloseAsync();
+}
