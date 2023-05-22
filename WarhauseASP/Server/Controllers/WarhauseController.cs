@@ -116,5 +116,13 @@ namespace WarhauseASP.Server.Controllers
             var sell = _userService.Sell(guid, Quantity);
             return Ok(sell);
         }
+        [HttpGet("Sell")]
+        public IActionResult GetSell()
+        {
+            DateTime dateTime = DateTime.Now;
+            var sell = _connectionDB.Sells.OrderBy(x => x.dateTimeSell == dateTime).ToList();
+            return Ok(sell);
+        }
+
     }
 }

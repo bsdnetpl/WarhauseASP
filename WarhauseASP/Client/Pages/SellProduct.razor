@@ -1,0 +1,41 @@
+﻿@page "/sellproduct"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject HttpClient Http
+@inject NavigationManager navigator
+
+<h3>Sell</h3>
+
+@if (sell == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <QuickGrid Items="@sell.AsQueryable()" Pagination="@pagination" Virtualize="true" ResizableColumns Theme="corporate">
+             @*<PropertyColumn Property="@(p => p.Id)"></PropertyColumn >*@
+             <PropertyColumn Property="@(p => p.Name)" Sortable="true"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.Quantity)"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.Profit)"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.SellePriceBrutto)"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.PurchasePriceNetto)"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.GTU)"></PropertyColumn>
+             <TemplateColumn Title="Actions">
+                 <button class="btn btn-warning">Sell</button>
+                 <button class="btn btn-dark">Edit</button>
+                 <button class="btn btn-danger">Delete</button>
+             </TemplateColumn>
+         </QuickGrid>
+    <Paginator Value="@pagination" />
+
+
+}
+
+@code {
+    PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
+    WarhauseASP.Shared.Sell[]? sell;
+    protected override async Task OnInitializedAsync()
+    {
+        sell = await Http.GetFromJsonAsync<WarhauseASP.Shared.Sell[]>("api/Warhause/Sell");
+    }
+}
