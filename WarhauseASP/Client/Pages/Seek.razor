@@ -57,7 +57,7 @@ else
     public void edit (Guid Id, string name)
     {
     var parameters = new ModalParameters()
-    .Add(nameof(DisplayMessage.Message), Id)
+    .Add(nameof(DisplayMessage.Id), Id)
     .Add(nameof(DisplayMessage.name), name);
 
         Model.Show<DisplayMessage>("Passing Data", parameters);

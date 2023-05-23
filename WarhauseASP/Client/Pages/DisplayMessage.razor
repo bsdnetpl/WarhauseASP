@@ -1,17 +1,26 @@
-﻿<div>
-    <p>@Message</p>
+﻿@using System.Text;
+@inject HttpClient HttpClient
+<div>
+    <p>@Id</p>
     <p>@name</p>
     <p>Amount product</p>
-    <input type="text" />
-    <button @onclick="Close">Sell</button>
+    <input type="text"  @bind=Amount />
+    <button @onclick="() => Send()">Sell</button>
     <button @onclick="Close">Close</button>
 </div>
 
 @code {
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
-    [Parameter] public Guid? Message { get; set; }
+    [Parameter] public Guid? Id { get; set; }
     [Parameter] public string? name { get; set; }
+    public double Amount;
 
     private async Task Close() => await BlazoredModal.CloseAsync();
+
+    private async Task Send()
+    {
+        await HttpClient.PutAsync($"api/Warhause/Sell?guid={Id}&Quantity={Amount}", null);
+        await BlazoredModal.CloseAsync();
+    }
 }
