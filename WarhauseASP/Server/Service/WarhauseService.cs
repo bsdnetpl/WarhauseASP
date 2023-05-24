@@ -74,15 +74,16 @@ namespace WarhauseASP.Server.Service
 
         public Sell Sell(Guid guid, double Quantity)
         {
+            DateTime dateTime = DateTime.Today;
             Sell sell = new Sell();
             var result = _connectionDB.States.Find(guid);
             sell.Name = result.Name;
             sell.EAN = result.EAN;
-            sell.Profit = result.Profit;
+            sell.Profit = result.Profit * Quantity;
             sell.Quantity = Quantity;
             sell.SellePriceBrutto = result.SellePriceBrutto;
             sell.GTU = result.GTU;
-            sell.dateTimeSell = DateTime.Now;
+            sell.dateTimeSell = Convert.ToDateTime(dateTime.ToString("MM/dd/yyyy"));
             sell.PurchasePriceNetto = result.PurchasePriceNetto;
             sell.Id = Guid.NewGuid();
             _connectionDB.Sells.Add(sell);

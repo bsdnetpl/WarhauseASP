@@ -1,7 +1,9 @@
 ﻿@page "/sellproduct"
+@using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.QuickGrid
 @inject HttpClient Http
 @inject NavigationManager navigator
+@attribute [Authorize]
 
 <h3>Sell</h3>
 
@@ -20,8 +22,10 @@ else
              <PropertyColumn Property="@(p => p.SellePriceBrutto)"></PropertyColumn>
              <PropertyColumn Property="@(p => p.PurchasePriceNetto)"></PropertyColumn>
              <PropertyColumn Property="@(p => p.GTU)"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.dateTimeSell)"></PropertyColumn>
+             <PropertyColumn Property="@(p => p.EAN)"></PropertyColumn>
              <TemplateColumn Title="Actions">
-                 <button class="btn btn-warning">Sell</button>
+                 
                  <button class="btn btn-dark">Edit</button>
                  <button class="btn btn-danger">Delete</button>
              </TemplateColumn>

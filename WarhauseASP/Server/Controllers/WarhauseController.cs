@@ -119,8 +119,8 @@ namespace WarhauseASP.Server.Controllers
         [HttpGet("Sell")]
         public IActionResult GetSell()
         {
-            DateTime dateTime = DateTime.Now;
-            var sell = _connectionDB.Sells.OrderBy(x => x.dateTimeSell == dateTime).ToList();
+            DateTime dateTime = DateTime.Today;
+            var sell = _connectionDB.Sells.Where<Sell>(x => x.dateTimeSell == Convert.ToDateTime(dateTime.ToString("MM/dd/yyyy"))).ToList();
             return Ok(sell);
         }
 
