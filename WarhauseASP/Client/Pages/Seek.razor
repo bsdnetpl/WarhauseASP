@@ -32,7 +32,8 @@
                     <td>@product.GTU</td>
                     <AuthorizeView Roles="Admin">
                     <td><button class="btn btn-danger" @onclick="() => DeleteProducts(product.Id)">Delete product</button></td>
-                        <td><button @onclick="()=>edit(product.Id,product.Name)">Sell</button></td>
+                        <td><button @onclick="()=>sell(product.Id,product.Name)" class="btn-check">Sell</button></td>
+                        <td><button @onclick="()=>Edit(product.Id)" class="btn-info">Edit</button></td>
                     </AuthorizeView>
                 </tr>
             }
@@ -53,14 +54,19 @@ else
 @code {
     private string? SearchTerm { get; set; }
     private List<WarhauseASP.Shared.State>? Products { get; set; }
-
-    public void edit (Guid Id, string name)
+    public void Edit(Guid Id)
+    {
+        var parameters = new ModalParameters()
+        .Add(nameof(DisplayMessageEdit.Id), Id);
+        Model.Show<DisplayMessageEdit>("Edit Product", parameters);
+    }
+    public void sell(Guid Id, string name)
     {
     var parameters = new ModalParameters()
     .Add(nameof(DisplayMessage.Id), Id)
     .Add(nameof(DisplayMessage.name), name);
 
-        Model.Show<DisplayMessage>("Passing Data", parameters);
+        Model.Show<DisplayMessage>("Sell Product", parameters);
     
     }
     private async Task SearchProducts()

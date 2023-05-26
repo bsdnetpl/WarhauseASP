@@ -16,14 +16,14 @@ else
 
     <QuickGrid Items="@sell.AsQueryable()" Pagination="@pagination" Virtualize="true" ResizableColumns Theme="corporate">
              @*<PropertyColumn Property="@(p => p.Id)"></PropertyColumn >*@
-             <PropertyColumn Property="@(p => p.Name)" Sortable="true"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.Quantity)"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.Profit)"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.SellePriceBrutto)"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.PurchasePriceNetto)"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.GTU)"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.dateTimeSell)"></PropertyColumn>
-             <PropertyColumn Property="@(p => p.EAN)"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.Name)" Sortable="true" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.Quantity)" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.Profit)" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.SellePriceBrutto)" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.PurchasePriceNetto)" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.GTU)" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.dateTimeSell)" Class="heders"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.EAN)" Class="heders"></PropertyColumn>
              <TemplateColumn Title="Actions">
                  
                  <button class="btn btn-dark">Edit</button>

@@ -1,0 +1,34 @@
+﻿@using System.Text;
+@inject HttpClient HttpClient
+<div>
+    @Id
+    @if (Product == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else{
+    @foreach(var prod in Product)
+    {
+    @prod.Name
+    }
+    }
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public Guid? Id { get; set; }
+    private List<WarhauseASP.Shared.State>? Product { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Product = await HttpClient.GetFromJsonAsync<List<WarhauseASP.Shared.State>>($"api/Warhause/StateSeekById?id={Id}");
+    }
+    private async Task Close() => await BlazoredModal.CloseAsync();
+
+    private async Task Send()
+    {
+        //await HttpClient.PutAsync($"api/Warhause/Sell?guid={Id}&Quantity={Amount}", null);
+        await BlazoredModal.CloseAsync();
+    }
+}

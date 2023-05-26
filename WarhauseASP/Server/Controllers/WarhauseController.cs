@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WarehouseASP.Server.DB;
 using WarhauseASP.Server.DB;
 using WarhauseASP.Shared;
@@ -27,7 +28,7 @@ namespace WarhauseASP.Server.Controllers
             _userService = userService;
         }
         [HttpPost("SetState")]
-        public async Task<IActionResult> SetState()
+        public IActionResult SetState()
         {
             var MyState = _userService.SetState();
             return Ok(MyState);
@@ -35,7 +36,7 @@ namespace WarhauseASP.Server.Controllers
         [HttpGet("State")]
         public async Task<IActionResult> GetState()
         {
-            var state = _connectionDB.States.OrderBy(x => x.Name).ToList();
+            var state = await _connectionDB.States.OrderBy(x => x.Name).ToListAsync();
             return Ok(state);
         }
         [HttpGet("StateSeek")]
@@ -47,15 +48,13 @@ namespace WarhauseASP.Server.Controllers
             _logger.LogWarning("This is a warning message ");
             _logger.LogError(new Exception(), "This is an error message");
 
-            var seek = _connectionDB.States.Where(p => p.Name.Contains(name)).ToList();//Where(x => EF.Functions.Like(x.Name, "%"+name+"%")).ToList();
+            var seek = await _connectionDB.States.Where(p => p.Name.Contains(name)).ToListAsync();//Where(x => EF.Functions.Like(x.Name, "%"+name+"%")).ToList();
             return Ok(seek);
         }
 
         [HttpGet("StateSeekById")]
         public async Task<ActionResult<List<State>>> SeekStata(Guid id)
         {
-
-
             var seek = _connectionDB.States.Find(id);//Where(x => EF.Functions.Like(x.Name, "%"+name+"%")).ToList();
             return Ok(seek);
         }
