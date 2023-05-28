@@ -1,0 +1,31 @@
+﻿label {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-shadow: 7px 5px 9px rgba(15,7,4,0.78);
+}
+fieldset {
+    width: 280px;
+    border: 0;
+}
+
+label {
+    display: block;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+input {
+    float: right;
+    width: 150px;
+    margin: 0 0 0 5px;
+}
+
+

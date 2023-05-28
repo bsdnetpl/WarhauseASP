@@ -66,14 +66,15 @@ else
 
     WarhauseASP.Shared.State[]? state;
     PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
-
+    //--------------------------------------------------------------------------------------------------------
     protected override async Task OnInitializedAsync()
     {
         state = await Http.GetFromJsonAsync<WarhauseASP.Shared.State[]>("api/Warhause/State");
     }
-   
+    //--------------------------------------------------------------------------------------------------------
     void ShowProduct(Guid id)
     {
         navigator.NavigateTo($"/product?id={id}");
     }
+    //--------------------------------------------------------------------------------------------------------
 }

@@ -45,15 +45,16 @@ else
 @code {
     private int line { get; set; }
     WarhauseASP.Shared.Logs[]? logs;
+    //--------------------------------------------------------------------------------------------------------
     protected override void OnInitialized()
     {
         line = 130;
     }
+    //--------------------------------------------------------------------------------------------------------
     private async Task SearchLogs()
     {
         logs = await Http.GetFromJsonAsync<WarhauseASP.Shared.Logs[]>($"api/Warhause/Logs?getline={line}");
     }
-
-
+    //--------------------------------------------------------------------------------------------------------
 }
 

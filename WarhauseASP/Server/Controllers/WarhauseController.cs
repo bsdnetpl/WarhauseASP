@@ -18,6 +18,7 @@ namespace WarhauseASP.Server.Controllers
         private readonly ConnectionMysql _dbContextMy;
         private readonly ILogger<State> _logger;
         private readonly IWarhauseService _userService;
+        //--------------------------------------------------------------------------------------------------------
         public WarhauseController(IMapper mapper, ConnectionDB connectionDB, ConnectionMysql dbContextMy, ILogger<State> logger, IWarhauseService userService)
         {
             _mapper = mapper;
@@ -26,18 +27,21 @@ namespace WarhauseASP.Server.Controllers
             _logger = logger;
             _userService = userService;
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpPost("SetState")]
         public async Task<IActionResult> SetState()
         {
             var MyState = _userService.SetState();
             return Ok(MyState);
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpGet("State")]
         public async Task<IActionResult> GetState()
         {
             var state = _connectionDB.States.OrderBy(x => x.Name).ToList();
             return Ok(state);
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpGet("StateSeek")]
         public async Task<ActionResult<List<State>>> SeekStata(string name)
         {
@@ -50,21 +54,21 @@ namespace WarhauseASP.Server.Controllers
             var seek = _connectionDB.States.Where(p => p.Name.Contains(name)).ToList();//Where(x => EF.Functions.Like(x.Name, "%"+name+"%")).ToList();
             return Ok(seek);
         }
-
+        //--------------------------------------------------------------------------------------------------------
         [HttpGet("StateSeekById")]
         public async Task<ActionResult<List<State>>> SeekStata(Guid id)
         {
-
-
             var seek = _connectionDB.States.Find(id);//Where(x => EF.Functions.Like(x.Name, "%"+name+"%")).ToList();
             return Ok(seek);
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpGet("Logs")]
         public IActionResult GetLogs(int getline)
         {
             var logs = _userService.GetLogs(getline);
             return Ok(logs);
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpDelete("DeletetProduct")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(Guid guid)
@@ -84,10 +88,15 @@ namespace WarhauseASP.Server.Controllers
                 }
                 return Ok($"No product in DB: {delProd.Name}");
          }
-
+        //--------------------------------------------------------------------------------------------------------
         [HttpPut("EdityState")]
+
         public IActionResult EditState(StateDto stateDto, Guid guid)
         {
+            _logger.LogDebug("This is a debug message");
+            _logger.LogInformation("This is an info message");
+            _logger.LogWarning("This is a warning message ");
+            _logger.LogError(new Exception(), "This is an error message");
             var result = _connectionDB.States.Find(guid);
             if (result == null)
             {
@@ -101,9 +110,15 @@ namespace WarhauseASP.Server.Controllers
             var editVal = _userService.EditState(stateDto, guid);
             return Ok(editVal);
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpPut("Sell")]
         public IActionResult Sell(Guid guid, double Quantity)
         {
+            _logger.LogDebug("This is a debug message");
+            _logger.LogInformation("This is an info message");
+            _logger.LogWarning("This is a warning message ");
+            _logger.LogError(new Exception(), "This is an error message");
+
             var result = _connectionDB.States.Find(guid);
             if (result == null)
             {
@@ -116,6 +131,7 @@ namespace WarhauseASP.Server.Controllers
             var sell = _userService.Sell(guid, Quantity);
             return Ok(sell);
         }
+        //--------------------------------------------------------------------------------------------------------
         [HttpGet("Sell")]
         public IActionResult GetSell()
         {
@@ -123,6 +139,7 @@ namespace WarhauseASP.Server.Controllers
             var sell = _connectionDB.Sells.Where<Sell>(x => x.dateTimeSell == Convert.ToDateTime(dateTime.ToString("MM/dd/yyyy"))).ToList();
             return Ok(sell);
         }
+        //--------------------------------------------------------------------------------------------------------
 
     }
 }

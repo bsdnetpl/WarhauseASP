@@ -14,7 +14,7 @@ namespace WarhauseASP.Server.Service
         private readonly ConnectionDB _connectionDB;
         private readonly ConnectionMysql _dbContextMy;
         private readonly ILogger<State> _logger;
-
+        //--------------------------------------------------------------------------------------------------------
         public WarhauseService(IMapper mapper, IPasswordHasher<User> passwordHasher , ConnectionDB connectionDB, ConnectionMysql dbContextMy, ILogger<State>? logger)
         {
             _mapper = mapper;
@@ -23,14 +23,14 @@ namespace WarhauseASP.Server.Service
             _dbContextMy = dbContextMy;
             _logger = logger;
         }
-
+        //--------------------------------------------------------------------------------------------------------
         public void DeleteProduct(Guid guid)
         {
             var delProd = _connectionDB.States.Find(guid);
             _connectionDB.States.Remove(delProd);
             _connectionDB.SaveChanges();
         }
-
+        //--------------------------------------------------------------------------------------------------------
         public State EditState(StateDto stateDto, Guid guid)
         {
             var result = _connectionDB.States.Find(guid);
@@ -55,7 +55,7 @@ namespace WarhauseASP.Server.Service
             _connectionDB.SaveChanges();
             return result;
         }
-
+        //--------------------------------------------------------------------------------------------------------
         public List<Logs>? GetLogs(int getline)
         {
             if (getline == 0)
@@ -71,7 +71,7 @@ namespace WarhauseASP.Server.Service
             }
             return logs;
         }
-
+        //--------------------------------------------------------------------------------------------------------
         public Sell Sell(Guid guid, double Quantity)
         {
             DateTime dateTime = DateTime.Today;
@@ -91,7 +91,7 @@ namespace WarhauseASP.Server.Service
             _connectionDB.SaveChanges();
             return sell;
         }
-
+        //--------------------------------------------------------------------------------------------------------
         public List<stan>? SetState()
         {
             State state;
@@ -109,5 +109,6 @@ namespace WarhauseASP.Server.Service
 
             return MyState;
         }
+        //--------------------------------------------------------------------------------------------------------
     }
 }

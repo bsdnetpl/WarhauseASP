@@ -32,7 +32,8 @@
                     <td>@product.GTU</td>
                     <AuthorizeView Roles="Admin">
                     <td><button class="btn btn-danger" @onclick="() => DeleteProducts(product.Id)">Delete product</button></td>
-                        <td><button @onclick="()=>edit(product.Id,product.Name)">Sell</button></td>
+                    <td><button class="btn btn-info" @onclick="()=>sell(product.Id,product.Name)">Sell</button></td>
+                    <td><button class="btn btn-danger" @onclick="()=>edit(product.Id)">Edit</button></td>
                     </AuthorizeView>
                 </tr>
             }
@@ -53,20 +54,27 @@ else
 @code {
     private string? SearchTerm { get; set; }
     private List<WarhauseASP.Shared.State>? Products { get; set; }
-
-    public void edit (Guid Id, string name)
+    //--------------------------------------------------------------------------------------------------------
+    public void sell(Guid Id, string name)
     {
-    var parameters = new ModalParameters()
-    .Add(nameof(DisplayMessage.Id), Id)
-    .Add(nameof(DisplayMessage.name), name);
-
+        var parameters = new ModalParameters()
+        .Add(nameof(DisplayMessage.Id), Id)
+        .Add(nameof(DisplayMessage.name), name);
         Model.Show<DisplayMessage>("Passing Data", parameters);
-    
     }
+    //--------------------------------------------------------------------------------------------------------
     private async Task SearchProducts()
     {
         Products = await HttpClient.GetFromJsonAsync<List<WarhauseASP.Shared.State>>($"api/Warhause/StateSeek?name={SearchTerm}");
     }
+    //--------------------------------------------------------------------------------------------------------
+    public void edit(Guid id)
+    {
+        var parameters = new ModalParameters()
+       .Add(nameof(DMEdit.Id), id);
+        Model.Show<DMEdit>("Edit Data", parameters);
+    }
+    //--------------------------------------------------------------------------------------------------------
     private async Task DeleteProducts(Guid id)
     {
         
@@ -77,4 +85,5 @@ else
         Navigate.NavigateTo("Seek", forceLoad: true);
 
     }
+    //--------------------------------------------------------------------------------------------------------
 }

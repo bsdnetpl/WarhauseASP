@@ -1,0 +1,84 @@
+﻿@using System.Text;
+@inject HttpClient HttpClient
+@if (state == null)
+{
+    <p><em>Loading...</em></p>
+}
+else{
+   <div>
+        <EditForm Model="@state" OnSubmit="@HandleSubmit">
+           
+            <p>
+                <label>Nazwa</label>
+                <InputText id="name" @bind-Value="state.Name" />
+            </p>
+
+             <p>
+                <label>GTU</label>
+                <InputText id="n" @bind-Value="state.GTU" />
+             </p>
+            <p>
+                <label>Date</label>
+                <InputText id="date" @bind-Value="state.Daty_Bay" />
+            </p>
+
+            <p>
+                <label>Invoice</label>
+                <InputText id="Invoice" @bind-Value="state.InvoiceNumber" />
+            </p>
+
+            <p>
+                 <label>Profit</label>
+                 <InputNumber id="profit" @bind-Value="state.Profit" />
+            </p>
+            <p>
+                <label>Purche price netto</label>
+                <InputNumber id="purchnetto" @bind-Value="state.PurchasePriceNetto" />
+            </p>
+            <p>
+                <label>Differend Vat Tax</label>
+                <InputNumber id="DifferendVatTax" @bind-Value="state.DifferendVatTax" />
+            </p>
+            <p>
+                <label>EAN Code</label>
+                <InputText id="EAN" @bind-Value="state.EAN" />
+            </p>
+            <p>
+                <label>Cod Product</label>
+                <InputText id="CodProduct" @bind-Value="state.CodProduct" />
+            </p>
+            <p>
+                <label>Quantity</label>
+                <InputNumber id="quantity" @bind-Value="state.Quantity" />
+            </p>
+            <p>
+                <label>Selle Price Brutto</label>
+                <InputNumber id="SellePriceBrutto" @bind-Value="state.SellePriceBrutto" />
+            </p>
+
+            <button @onclick="() =>  HandleSubmit()" class="btn btn-danger">Save Edit</button>
+      <button @onclick="Close" class="btn btn-info">Close</button>
+</EditForm>
+</div>
+}
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public Guid? Id { get; set; }
+
+    private WarhauseASP.Shared.State? state;
+
+    private async Task Close() => await BlazoredModal.CloseAsync();
+
+    protected override async Task OnInitializedAsync()
+    {
+        state = await HttpClient.GetFromJsonAsync<WarhauseASP.Shared.State>($"api/Warhause/StateSeekById?id={Id}");
+    }
+
+    private async Task HandleSubmit()
+    {
+      
+        await HttpClient.PutAsJsonAsync($"api/Warhause/EdityState?guid={Id}", state);
+        await BlazoredModal.CloseAsync();
+    }
+}
