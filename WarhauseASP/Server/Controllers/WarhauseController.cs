@@ -38,7 +38,8 @@ namespace WarhauseASP.Server.Controllers
         [HttpGet("State")]
         public async Task<IActionResult> GetState()
         {
-            var state = _connectionDB.States.OrderBy(x => x.Name).ToList();
+             IQueryable<State> states = _connectionDB.States.OrderBy(x => x.Name);
+            var state = states.ToList();
             return Ok(state);
         }
         //--------------------------------------------------------------------------------------------------------
