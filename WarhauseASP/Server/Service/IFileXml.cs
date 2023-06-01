@@ -2,7 +2,7 @@
 {
     public interface IFileXml
     {
-        void GetFileXmlBig(string Link, Guid idUser, Guid AuthKey, string filename);
+        void GetFileXmlBig(string Link, Guid idUser, Guid AuthKey, string LocalDir);
         void AddPrivilageToAccesGetFile(Guid idUser, int count);
 
     }

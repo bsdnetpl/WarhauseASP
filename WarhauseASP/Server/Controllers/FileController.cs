@@ -15,9 +15,10 @@ namespace WarhauseASP.Server.Controllers
         }
 
         [HttpGet("FileXml")]
-        public void GetFileXmlBig(string Link, Guid idUser, Guid AuthKey, string filename)
+        public IActionResult GetFileXmlBig(string Link, Guid idUser, Guid AuthKey, string LocalDir)
         {
-
+            _filexml.GetFileXmlBig(Link, idUser, AuthKey, LocalDir);
+            return Ok();
         }
         [HttpPost("AddPrivilage")]
         public IActionResult AddPrivilageToAccessXmlFile(Guid guid, int count)
