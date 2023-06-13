@@ -15,7 +15,7 @@ Welcome to your new app.
 <button @onclick="@(() => model.Show<Logs>("My Movies"))">View logs</button>
 <button @onclick="@(() => model.Show<Seek>("Model seek"))" class="btn btn-primary">View Model seek</button>
 <AuthorizeView Roles="Admin">
-    <p>Admin view</p>
+    <p class="alert alert-success">Admin view</p>
 </AuthorizeView>
 
 @{
