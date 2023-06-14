@@ -19,6 +19,8 @@ namespace WarhauseASP.Server.DB
         public DbSet<InvoceAll> invoceAlls { get; set; }
         public DbSet<Logs> Logs { get; set; }
         public DbSet<FileAuthKey> fileAuthKeys { get; set; }
+        public DbSet<Role> roles { get; set; }
+        public DbSet<Contractors> contractors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
