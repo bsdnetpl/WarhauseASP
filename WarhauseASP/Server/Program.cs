@@ -43,6 +43,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IWarhauseService, WarhauseService>();
 builder.Services.AddScoped<IFileXml, FileXml>();
+builder.Services.AddScoped<IContractor, Contractor>();
 builder.Services.AddScoped<IRole, WarhauseASP.Server.Service.Role>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
