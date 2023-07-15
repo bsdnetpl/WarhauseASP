@@ -15,7 +15,7 @@ namespace WarhauseASP.Server.Service
         private readonly ConnectionMysql _dbContextMy;
         private readonly ILogger<State> _logger;
         //--------------------------------------------------------------------------------------------------------
-        public WarhauseService(IMapper mapper, IPasswordHasher<User> passwordHasher , ConnectionDB connectionDB, ConnectionMysql dbContextMy, ILogger<State>? logger)
+        public WarhauseService(IMapper mapper, IPasswordHasher<User> passwordHasher, ConnectionDB connectionDB, ConnectionMysql dbContextMy, ILogger<State>? logger)
         {
             _mapper = mapper;
             _passwordHasher = passwordHasher;
@@ -23,6 +23,30 @@ namespace WarhauseASP.Server.Service
             _dbContextMy = dbContextMy;
             _logger = logger;
         }
+
+        public State? AddState(StateDto stateDto)
+        {
+            State state = new State();
+            state.CodProduct = stateDto.CodProduct;
+            state.CourseEuro = stateDto.CourseEuro;
+            state.CourseUsd = stateDto.CourseUsd;
+            state.Daty_Bay = stateDto.Daty_Bay;
+            state.EAN = stateDto.EAN;
+            state.Name = stateDto.Name;
+            state.GTU = stateDto.GTU;
+            state.Profit = stateDto.Profit;
+            state.QuantityInBox = stateDto.QuantityInBox;
+            state.Quantity = stateDto.Quantity;
+            state.Id = Guid.NewGuid();
+            state.InvoiceNumber = stateDto.InvoiceNumber;
+            state.TaxVat = stateDto.TaxVat;
+            _connectionDB.States.Add(state);
+            _connectionDB.SaveChanges();
+            return state;
+
+
+        }
+
         //--------------------------------------------------------------------------------------------------------
         public void DeleteProduct(Guid guid)
         {
@@ -109,6 +133,9 @@ namespace WarhauseASP.Server.Service
 
             return MyState;
         }
-        //--------------------------------------------------------------------------------------------------------
+
+
     }
+        //--------------------------------------------------------------------------------------------------------
+
 }

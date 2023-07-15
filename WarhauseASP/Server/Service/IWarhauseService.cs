@@ -9,5 +9,7 @@ namespace WarhauseASP.Server.Controllers
         State EditState(StateDto stateDto, Guid guid);
         void DeleteProduct(Guid guid);
         List<stan>? SetState();
+        State? AddState(StateDto stateDto);
+
     }
 }

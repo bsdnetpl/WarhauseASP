@@ -141,6 +141,12 @@ namespace WarhauseASP.Server.Controllers
             return Ok(sell);
         }
         //--------------------------------------------------------------------------------------------------------
+        [HttpPost]
+        public ActionResult<State> Adduser(StateDto stateDto)
+        {
+            _userService.AddState(stateDto);
+            return Ok(stateDto);
+        }
 
     }
 }
