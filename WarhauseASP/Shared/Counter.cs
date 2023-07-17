@@ -10,14 +10,12 @@ namespace WarhauseASP.Shared
     {
         public double AddProcent(double numeric, double procent)
         {
-            procent = procent / 100;
-            procent =+1;
+            procent = (procent / 100) + 1;
             return Math.Round(numeric * procent,2);
         }
         public double SubtractProcent(double numeric, double procent) 
         {
-            procent = procent / 100;
-            procent = +1;
+            procent = (procent  / 100) +1;
             return Math.Round(numeric / procent, 2);
         }
         public double DiffrentTax(double priceBruttoBay, double priceBruttoSell, double procent)

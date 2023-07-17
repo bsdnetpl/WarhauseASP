@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IModalService Model
+
 <input type="text" @bind-value="@SearchTerm" class="form-control form-control-lg" />
 
 <button class="btn btn-danger border border-success" data-bs-toggle="tooltip" title="Search for the product you are interested in" @onclick="SearchProducts">Search</button>
