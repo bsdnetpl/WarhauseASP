@@ -13,15 +13,32 @@ namespace WarhauseASP.Server.Service
             _connectionDB = connectionDB;
         }
 
-        public ActionResult DeleteContractor(Guid IdContractor)
+        public string DeleteContractor(Guid IdContractor)
         {
-            throw new NotImplementedException();
+            var del = _connectionDB.contractors.Find(IdContractor);
+            if (del != null)
+            {
+                _connectionDB.contractors.Remove(del);
+                _connectionDB.SaveChanges();
+                return($"Contractor was been deleted ! {del.Name}");
+            }
+            return ("No user deleted !");
         }
 
 
-        public ActionResult EditContractor(Contractors contractors)
+        public Contractors? EditContractor(Contractors contractors)
         {
-            throw new NotImplementedException();
+                Contractors EditContra = new Contractors();
+                EditContra.Name = contractors.Name;
+                EditContra.Street = contractors.Street;
+                EditContra.Recipient = contractors.Recipient;
+                EditContra.Phone = contractors.Phone;
+                EditContra.City = contractors.City;
+                EditContra.Country = contractors.Country;
+                EditContra.NIP = contractors.NIP;
+                EditContra.Representative = contractors.Representative;
+                _connectionDB.SaveChanges();
+                return EditContra;
         }
 
         public List<Contractors> GetAllContrectors()

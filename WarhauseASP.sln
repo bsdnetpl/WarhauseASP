@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhauseASP.Client", "Warha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhauseASP.Shared", "WarhauseASP\Shared\WarhauseASP.Shared.csproj", "{626B3649-891B-4DA7-B334-0DC4BAC49ED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{68CEA3CF-9335-444B-80FC-E102F5E69AA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{68CEA3CF-9335-444B-80FC-E102F5E69AA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

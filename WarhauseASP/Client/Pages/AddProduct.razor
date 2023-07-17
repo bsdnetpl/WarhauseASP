@@ -1,0 +1,75 @@
+﻿@page "/addproduct"
+@inject HttpClient HttpClient
+
+<h3>Add New Product</h3>
+
+<div>
+    <EditForm Model="@state" OnSubmit="@HandleSubmit">
+
+        <p>
+            <label>Nazwa</label>
+            <InputText id="name" @bind-Value="state.Name" />
+        </p>
+
+        <p>
+            <label>GTU</label>
+            <InputText id="n" @bind-Value="state.GTU" />
+        </p>
+        <p>
+            <label>Date</label>
+            <InputText id="date" @bind-Value="state.Daty_Bay" />
+        </p>
+
+        <p>
+            <label>Invoice</label>
+            <InputText id="Invoice" @bind-Value="state.InvoiceNumber" />
+        </p>
+
+        <p>
+            <label>Profit</label>
+            <InputNumber id="profit" @bind-Value="state.Profit" readonly="true" />
+        </p>
+        <p>
+            <label>Purche price netto</label>
+            <InputNumber id="purchnetto" @bind-Value="state.PurchasePriceNetto" />
+        </p>
+        <p>
+            <label>Differend Vat Tax</label>
+            <InputNumber id="DifferendVatTax" @bind-Value="state.DifferendVatTax" readonly="true" />
+        </p>
+        <p>
+            <label>EAN Code</label>
+            <InputText id="EAN" @bind-Value="state.EAN " />
+        </p>
+        <p>
+            <label>Cod Product</label>
+            <InputText id="CodProduct" @bind-Value="state.CodProduct" />
+        </p>
+        <p>
+            <label>Quantity</label>
+            <InputNumber id="quantity" @bind-Value="state.Quantity" />
+        </p>
+        <p>
+            <label>Selle Price Brutto</label>
+            <InputNumber id="SellePriceBrutto" @bind-Value="state.SellePriceBrutto" />
+        </p>
+
+        <p><button @onclick="() =>  HandleSubmit()" class="btn btn-danger">Save Data</button></p>
+        <p><button @onclick="() =>  CountSubmit()" class="btn btn-danger">Count Data</button></p>
+    </EditForm>
+</div>
+
+@code {
+    private WarhauseASP.Shared.State? state;
+    private WarhauseASP.Shared.Counter counter;
+    private async Task HandleSubmit()
+    {
+        Console.WriteLine();
+        //await HttpClient.PutAsJsonAsync($"api/Warhause/EdityState?guid={Id}", state);
+    }
+    private async Task CountSubmit()
+    {
+        Console.WriteLine();
+       // await HttpClient.PutAsJsonAsync($"api/Warhause/EdityState?guid={Id}", state);
+    }
+}

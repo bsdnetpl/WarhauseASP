@@ -5,8 +5,8 @@ namespace WarhauseASP.Server.Service
 {
     public interface IContractor
     {
-        ActionResult EditContractor(Contractors contractors);
-        ActionResult DeleteContractor(Guid IdContractor);
+        Contractors? EditContractor(Contractors contractors);
+        string DeleteContractor(Guid IdContractor);
         Contractors GetId([FromRoute] Guid guid);
         List<Contractors> GetAllContrectors();
     }

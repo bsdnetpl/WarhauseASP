@@ -30,11 +30,11 @@
                     <td>@product.SellePriceBrutto</td>
                     <td>@product.Quantity</td>
                     <td>@product.GTU</td>
-                    <AuthorizeView Roles="Admin">
+                   @*  <AuthorizeView Roles="Admin"> *@
                     <td><button class="btn btn-danger" @onclick="() => DeleteProducts(product.Id)">Delete product</button></td>
                     <td><button class="btn btn-info" @onclick="()=>sell(product.Id,product.Name)">Sell</button></td>
                     <td><button class="btn btn-danger" @onclick="()=>edit(product.Id)">Edit</button></td>
-                    </AuthorizeView>
+                    @* </AuthorizeView> *@
                 </tr>
             }
         </tbody>
