@@ -7,14 +7,57 @@
 
 
 
-<EditForm Model="@stateDto" OnSubmit="@HandleSubmit">
+<EditForm Model="@stateDto" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <p>
     <label>Name</label><br/>
     <InputText id="name" @bind-Value="stateDto.Name" />
     </p>
+    <p>
+        <label>Invoice Number</label><br />
+        <InputText id="InvoiceNumber" @bind-Value="stateDto.InvoiceNumber" />
+    </p>
+    <p>
+        <label>EAN Code</label><br />
+        <InputText id="EAN" @bind-Value="stateDto.EAN" />
+    </p>
+    <p>
+        <label>Quantity</label><br />
+        <InputNumber id="Quantity" @bind-Value="stateDto.Quantity" />
+    </p>
+    <p>
+        <label>Quantity In Box</label><br />
+        <InputNumber id="QuantityInBox" @bind-Value="stateDto.QuantityInBox" />
+    </p>
      <p>
         <label>Tax Vat</label><br />
-        <InputNumber id="TaxVat" @bind-Value="stateDto.TaxVat" />
+        <InputSelect @bind-Value=stateDto.TaxVat>
+            <option value="23">23%</option>
+            <option value="8">8%</option>
+            <option value="5">5%</option>
+            <option value="0">0%</option>
+            <option value="0">ZW</option>
+        </InputSelect>
+    </p>
+    <p>
+        <label>GTU</label><br />
+        <InputSelect @bind-Value=stateDto.GTU>
+            <option value="0">GTU 00</option>
+            <option value="1">GTU 01</option>
+            <option value="2">GTU 02</option>
+            <option value="3">GTU 03</option>
+            <option value="4">GTU 04</option>
+            <option value="5">GTU 05</option>
+            <option value="6">GTU 06</option>
+            <option value="7">GTU 07</option>
+            <option value="8">GTU 08</option>
+            <option value="9">GTU 09</option>
+            <option value="10">GTU 10</option>
+            <option value="11">GTU 11</option>
+            <option value="12">GTU 12</option>
+            <option value="13">GTU 13</option>
+        </InputSelect>
     </p>
     <p>
         <label>Selle Price Brutto</label><br />
