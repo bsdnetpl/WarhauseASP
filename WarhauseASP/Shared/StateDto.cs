@@ -5,7 +5,6 @@ namespace WarhauseASP.Shared
     public class StateDto
     {
         [Required]
-        [StringLength(3, ErrorMessage = "Name is too long.")]
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string EAN { get; set; } = string.Empty;

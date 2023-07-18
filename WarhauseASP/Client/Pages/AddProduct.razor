@@ -2,7 +2,7 @@
 @inject HttpClient HttpClient
 @using Microsoft.Extensions.Logging
 @inject ILogger<State> Logger
-
+@inject IJSRuntime JsRuntime
 <h3>Add New Product</h3>
 
 
@@ -69,19 +69,21 @@
     </p>
     <button @onclick="() =>  HandleSubmit()" class="btn btn-danger">Add Product</button>
 </EditForm>
-@sum
+
 
 
 @code {
 
-    private StateDto stateDto = new();
+    private StateDto ? stateDto = new();
     private WarhauseASP.Shared.Counter counter = new();
-    private double sum;
+
     private async Task HandleSubmit()
     {
-        Console.WriteLine();
-        sum = counter.DiffrentTax(counter.AddProcent(stateDto.PurchasePriceNetto, stateDto.TaxVat), stateDto.SellePriceBrutto,stateDto.TaxVat);
-        //await HttpClient.PutAsJsonAsync($"api/Warhause/EdityState?guid={Id}", state);
+        stateDto.Daty_Bay = Convert.ToString(DateTime.Now);
+        stateDto.Profit = Math.Round(counter.SubtractProcent(stateDto.SellePriceBrutto, stateDto.TaxVat) - stateDto.PurchasePriceNetto,2);
+        stateDto.DifferendVatTax = Math.Round((stateDto.SellePriceBrutto - counter.SubtractProcent(stateDto.SellePriceBrutto, stateDto.TaxVat)) - (counter.AddProcent(stateDto.PurchasePriceNetto, stateDto.TaxVat) - stateDto.PurchasePriceNetto),2);
+        await HttpClient.PostAsJsonAsync("api/Warhause/AddState", stateDto);
+        await JsRuntime.InvokeVoidAsync("alert", $"Product was been add {stateDto.Name}");
     }
     private async Task CountSubmit()
     {
