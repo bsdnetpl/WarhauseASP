@@ -16,7 +16,7 @@
         public string InvoiceNumber { get; set; }
         public double CourseEuro { get; set; }
         public double CourseUsd { get; set; }
-        public double TaxVat { get; set; }
+        public string TaxVat { get; set; }
         public string Daty_Bay { get; set; }
         public double DifferendVatTax { get; set; }
         public string CodProduct { get; set; } = null!;

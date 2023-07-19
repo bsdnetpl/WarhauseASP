@@ -30,15 +30,9 @@
         <label>Quantity In Box</label><br />
         <InputNumber id="QuantityInBox" @bind-Value="stateDto.QuantityInBox" />
     </p>
-     <p>
+    <p>
         <label>Tax Vat</label><br />
-        <InputSelect @bind-Value=stateDto.TaxVat>
-            <option value="23">23%</option>
-            <option value="8">8%</option>
-            <option value="5">5%</option>
-            <option value="0">0%</option>
-            <option value="0">ZW</option>
-        </InputSelect>
+        <InputText id="TaxVat" @bind-Value="stateDto.TaxVat" />
     </p>
     <p>
         <label>GTU</label><br />
@@ -80,10 +74,10 @@
     private async Task HandleSubmit()
     {
         stateDto.Daty_Bay = Convert.ToString(DateTime.Now);
-        stateDto.Profit = Math.Round(counter.SubtractProcent(stateDto.SellePriceBrutto, stateDto.TaxVat) - stateDto.PurchasePriceNetto,2);
-        stateDto.DifferendVatTax = Math.Round((stateDto.SellePriceBrutto - counter.SubtractProcent(stateDto.SellePriceBrutto, stateDto.TaxVat)) - (counter.AddProcent(stateDto.PurchasePriceNetto, stateDto.TaxVat) - stateDto.PurchasePriceNetto),2);
+        stateDto.Profit = Math.Round(counter.SubtractProcent(stateDto.SellePriceBrutto, Convert.ToDouble(stateDto.TaxVat)) - stateDto.PurchasePriceNetto,2);
+        stateDto.DifferendVatTax = Math.Round((stateDto.SellePriceBrutto - counter.SubtractProcent(stateDto.SellePriceBrutto, Convert.ToDouble(stateDto.TaxVat))) - (counter.AddProcent(stateDto.PurchasePriceNetto, Convert.ToDouble(stateDto.TaxVat)) - stateDto.PurchasePriceNetto), 2);
         await HttpClient.PostAsJsonAsync("api/Warhause/AddState", stateDto);
-        await JsRuntime.InvokeVoidAsync("alert", $"Product was been add {stateDto.Name}");
+        await JsRuntime.InvokeVoidAsync("alert", $"Product was been add {stateDto.Name} {stateDto.DifferendVatTax}");
     }
     private async Task CountSubmit()
     {
