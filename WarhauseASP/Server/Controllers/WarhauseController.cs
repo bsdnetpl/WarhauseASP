@@ -71,7 +71,7 @@ namespace WarhauseASP.Server.Controllers
         }
         //--------------------------------------------------------------------------------------------------------
         [HttpDelete("DeletetProduct")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(Guid guid)
         {
             _logger.LogDebug("This is a debug message");

@@ -77,7 +77,10 @@
         stateDto.Profit = Math.Round(counter.SubtractProcent(stateDto.SellePriceBrutto, Convert.ToDouble(stateDto.TaxVat)) - stateDto.PurchasePriceNetto,2);
         stateDto.DifferendVatTax = Math.Round((stateDto.SellePriceBrutto - counter.SubtractProcent(stateDto.SellePriceBrutto, Convert.ToDouble(stateDto.TaxVat))) - (counter.AddProcent(stateDto.PurchasePriceNetto, Convert.ToDouble(stateDto.TaxVat)) - stateDto.PurchasePriceNetto), 2);
         await HttpClient.PostAsJsonAsync("api/Warhause/AddState", stateDto);
-        await JsRuntime.InvokeVoidAsync("alert", $"Product was been add {stateDto.Name} {stateDto.DifferendVatTax}");
+     
+
+        
+        await JsRuntime.InvokeVoidAsync("alert", $"Product was been add {stateDto.Name} {stateDto.Daty_Bay}");
     }
     private async Task CountSubmit()
     {
